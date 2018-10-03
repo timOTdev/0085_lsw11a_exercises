@@ -1,18 +1,20 @@
 // pull in express
 const express= require('express');
+const logger = require('morgan');
 
 // instantiate your server
 const app = express();
 app.use(express.json());
+app.use(logger('combined'));
 
 // middlewares
-const logger = (req, res, next) => {
-  // next will be called in EVERY piece of middleware we build
-  // it will determine when to go, to the next piece of middleware.
-  console.log(`${Date.now()} ${req.method} made to ${req.url}`);
-  next();
-};
-app.use(logger);
+// const logger = (req, res, next) => {
+//   // next will be called in EVERY piece of middleware we build
+//   // it will determine when to go, to the next piece of middleware.
+//   console.log(`${Date.now()} ${req.method} made to ${req.url}`);
+//   next();
+// };
+// app.use(logger);
 
 const greeter = (req, res, next) => {
   req.section = 'FSW-13';
@@ -20,8 +22,8 @@ const greeter = (req, res, next) => {
 }
 
 const yell = (req, res, next) => {
-  const newName = req.params.name;
-  req.name = newName.toUpperCase();
+  const newName = req.params.name.toUpperCase();
+  req.name = newName;
   next();
 }
 
@@ -35,8 +37,8 @@ app.get('/rapha', (req, res) => {
 app.get('/section', greeter, (req, res) => {
   res.send(`Hello ${req.section}, I <3 U!`);
 })
-app.get('/name/:name', yell, (req,res) => {
-  res.send(req.name);
+app.get('/name/:name', yell, greeter, (req,res) => {
+  res.send(`${req.name} is in ${req.section}`);
 })
 
 // call server.listen w/ a port of your choosing

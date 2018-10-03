@@ -12,15 +12,32 @@ const logger = (req, res, next) => {
   console.log(`${Date.now()} ${req.method} made to ${req.url}`);
   next();
 };
-server.use(logger);
+app.use(logger);
+
+const greeter = (req, res, next) => {
+  req.section = 'FSW-13';
+  next();
+}
+
+const yell = (req, res, next) => {
+  const newName = req.params.name;
+  req.name = newName.toUpperCase();
+  next();
+}
 
 // built a GET endpoint to `/` that returns the string hello world to the client.
 app.get('/', (req, res) => {
   res.send('Hello World');
 })
-server.get('/rapha', (req, res) => {
+app.get('/rapha', (req, res) => {
   res.send('I am Raphael');
-});
+})
+app.get('/section', greeter, (req, res) => {
+  res.send(`Hello ${req.section}, I <3 U!`);
+})
+app.get('/name/:name', yell, (req,res) => {
+  res.send(req.name);
+})
 
 // call server.listen w/ a port of your choosing
 const port = 8000;

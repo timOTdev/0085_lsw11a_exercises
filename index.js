@@ -1,11 +1,17 @@
 // pull in express
 const express= require('express');
 const logger = require('morgan');
+const cors = require('cors');
+const helmet = require('helmet');
+const port = 8000;
 
 // instantiate your server
 const app = express();
-app.use(express.json());
-app.use(logger('combined'));
+app.use(express.json(), logger('combined'), cors(), helmet());
+// app.use(express.json());
+// app.use(logger('combined'));
+// app.use(cors());
+// app.use(helmet());
 
 // middlewares
 // const logger = (req, res, next) => {
@@ -42,7 +48,6 @@ app.get('/name/:name', yell, greeter, (req,res) => {
 })
 
 // call server.listen w/ a port of your choosing
-const port = 8000;
 app.listen(port, () => console.log(`===Port ${port} is running===`));
 
 // hit your port+/ to see "hello wold!"

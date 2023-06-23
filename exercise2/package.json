@@ -1,0 +1,26 @@
+{
+  "name": "lsw11-exercise2",
+  "version": "1.0.0",
+  "description": "Lambda School Week 11: Node/Express IV Demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timh1203/lsw11-exercise2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timh1203/lsw11-exercise2/issues"
+  },
+  "homepage": "https://github.com/timh1203/lsw11-exercise2#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
